@@ -1,8 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
+import Axios from 'axios';
 const Comments = ({id}) => {
     const [comments, setComments] = useState([]);
+    const GetComments = () => {
+      Axios.get('https://mernserver-8toi.onrender.com/comments/')
+        .then((res) => {
+          console.log(res, "response")
+          var data=res.data.filter(obj=>obj.blog_id===id)
+          setComments(data)
+          // setRowdata(res.data)
+        })
+        .catch((err) => {
+          console.log(err, "response")
+  
+        })
+    }
 
+
+    useEffect(() => {
+      GetComments()
+    }, [])
   return (
     <>
     {comments.length > 0 && (

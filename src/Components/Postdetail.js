@@ -1,5 +1,7 @@
 import React from 'react'
 import moment from 'moment'
+import Codee from './code1'
+import { Avatar } from '@mui/material'
 import '../globals.scss'
 const Postdetail = ({ post }) => {
   console.log(post, "postt")
@@ -21,8 +23,8 @@ const Postdetail = ({ post }) => {
             className="align-middle rounded-full"
             src={post.author.photo.url}
           /> */}
-            <img height="40px" width="40px" src={`data:image/png;base64,${post.author.photo}`} alt="" className="align-middle rounded-full" />
-
+            {/* <img height="40px" width="40px" src={`data:image/png;base64,${post.author.photo}`} alt="" className="align-middle rounded-full" /> */}
+            <Avatar style={{width:"40px",height:"40px"}} src={`data:image/png;base64,${post.author.photo}`} />
             <p className="inline align-middle text-gray-700 ml-2 font-medium text-lg">{post.author.name}</p>
           </div>
           <div className="font-medium text-gray-700">
@@ -36,13 +38,7 @@ const Postdetail = ({ post }) => {
         {post.content.map((item) => (
           <>
             <p className='text-md font-semibold mb-4'>{item.text}</p>
-    
-            <div className='code'>
-              <div className='copy'>
-
-              </div>
-            {item.code}
-            </div>
+            <Codee code={item.code}/>
           </>
         ))}
       </div>

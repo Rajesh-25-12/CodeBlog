@@ -1,11 +1,26 @@
 import React, { useState, useEffect } from 'react';
 // import { submitComment } from '../services';
-
+import Axios from 'axios';
 const CommentsForm = ({ id }) => {
   const [error, setError] = useState(false);
   const [localStorage, setLocalStorage] = useState(null);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [formData, setFormData] = useState({ name: null, email: null, comment: null, storeData: false });
+
+
+  const submit=()=>{
+ 
+    Axios.post('https://mernserver-8toi.onrender.com/comments/add',{blog_id:id,name:formData.name,email:formData.email,comment:formData.comment})
+    .then((res)=>{
+      console.log(res,"response")
+    
+    })
+    .catch((err)=>{
+      console.log(err,"response")
+    
+    })
+      }
+
 
   useEffect(() => {
     setLocalStorage(window.localStorage);
@@ -39,13 +54,6 @@ const CommentsForm = ({ id }) => {
       setError(true);
       return;
     }
-    const commentObj = {
-      name,
-      email,
-      comment,
-      // slug,
-    };
-
     if (storeData) {
       localStorage.setItem('name', name);
       localStorage.setItem('email', email);
@@ -53,25 +61,24 @@ const CommentsForm = ({ id }) => {
       localStorage.removeItem('name');
       localStorage.removeItem('email');
     }
-
-    // submitComment(commentObj)
-    //   .then((res) => {
-    //     if (res.createComment) {
-    //       if (!storeData) {
-    //         formData.name = '';
-    //         formData.email = '';
-    //       }
-    //       formData.comment = '';
-    //       setFormData((prevState) => ({
-    //         ...prevState,
-    //         ...formData,
-    //       }));
-    //       setShowSuccessMessage(true);
-    //       setTimeout(() => {
-    //         setShowSuccessMessage(false);
-    //       }, 3000);
-    //     }
-    //   });
+    Axios.post('https://mernserver-8toi.onrender.com/comments/add',{blog_id:id,name:formData.name,email:formData.email,comment:formData.comment})
+      .then((res) => {
+        if (res.createComment) {
+          if (!storeData) {
+            formData.name = '';
+            formData.email = '';
+          }
+          formData.comment = '';
+          setFormData((prevState) => ({
+            ...prevState,
+            ...formData,
+          }));
+          setShowSuccessMessage(true);
+          setTimeout(() => {
+            setShowSuccessMessage(false);
+          }, 3000);
+        }
+      });
   };
 
   return (

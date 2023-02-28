@@ -15,11 +15,12 @@ import Alert from '@material-ui/lab/Alert';
 import App from '../App';
 import FeaturedPosts from '../Realated';
 import '../globals.scss'
+
 const Main = ({ open, close, id }) => {
 
   const [data, setData] = useState([])
   const Getname = () => {
-    Axios.get('http://localhost:3001/read')
+    Axios.get('https://mernserver-8toi.onrender.com/read')
       .then((res) => {
         console.log(res, "response")
         setData(res.data)
@@ -42,8 +43,10 @@ const Main = ({ open, close, id }) => {
         fullScreen
         aria-describedby="alert-dialog-description"
       >
+
         <div className='dialog'>
-          <App />
+     
+          <App close={close} />
 
           {data.map((item) => (
             <>
@@ -64,12 +67,7 @@ const Main = ({ open, close, id }) => {
                     </div>
                   </div>
                 </div>
-                <br />
-                <br />
-
-
               </div>
-
             </>
           ))}
         </div>

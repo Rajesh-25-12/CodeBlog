@@ -2,8 +2,13 @@ import './App.css';
 import React, { useState, useEffect } from 'react';
 import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
 import Main from './Components/Main';
+import Tooltip from '@mui/material/Tooltip';
+import CancelIcon from '@mui/icons-material/Cancel';
 import './globals.scss'
-function App() {
+function App({close}) {
+  const handleclose=()=>{
+    close()
+  }
   return (
     <>
     <div className="container mx-auto px-10 mb-8">
@@ -15,6 +20,14 @@ function App() {
         {/* {categories.map((category, index) => (
           <span className="md:float-right mt-2 align-middle text-white ml-4 font-semibold cursor-pointer">{category.name}</span>
         ))} */}
+        {close&&(
+      <div onClick={()=>handleclose()}>
+            <Tooltip title="Close" arrow>
+      <CancelIcon  sx={{fontSize:"40px",color:"white",marginLeft:"80%"}}/>
+      </Tooltip>
+      </div>
+        )}
+            
       </div>
     </div>
   </div>
