@@ -1,39 +1,20 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import Widget from './widget'
 import Categories from './Categories';
 import Adjustpost from './Adjustpost';
 import Comments from './Comments';
 import CommentsForm from './Commentsform';
 import Author from './Author';
-import Axios from 'axios';
-import moment from 'moment';
 import Postdetail from './Postdetail';
 import Dialog from '@material-ui/core/Dialog';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogContent from '@material-ui/core/DialogContent';
-import Alert from '@material-ui/lab/Alert';
 import App from '../App';
-import FeaturedPosts from '../Realated';
 import '../globals.scss'
 
-const Main = ({ open, close, id }) => {
-
-  const [data, setData] = useState([])
-  const Getname = () => {
-    Axios.get('https://mernserver-8toi.onrender.com/read')
-      .then((res) => {
-        console.log(res, "response")
-        setData(res.data)
-        // setRowdata(res.data)
-      })
-      .catch((err) => {
-        console.log(err, "response")
-
-      })
-  }
-  useEffect(() => {
-    Getname()
-  }, [])
+const Main = ({ open, close, id,data,cat }) => {
+if(data===undefined){
+  data=[]
+}
+ 
   return (
     <>
       <Dialog
@@ -62,7 +43,7 @@ const Main = ({ open, close, id }) => {
 
                   <div className="col-span-1 lg:col-span-4">
                     <div className="relative lg:sticky top-8">
-                      <Widget categories={item.categories.type} data={data} id={id} />
+                      <Widget categories={item.categories.type} data={data} id={id} cat={cat} />
                       <Categories data={data} />
                     </div>
                   </div>

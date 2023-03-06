@@ -1,37 +1,25 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
 import moment from 'moment';
-import Axios from 'axios';
-import { useHistory } from 'react-router-dom';
 import Main from './Main';
 
-const Card = () => {
-  const navigate = useHistory()
-  const [data, setData] = useState([])
-  const [open, setopen] = useState(false)
-  const [id, setid] = useState()
-  const Getname = () => {
-    Axios.get('https://mernserver-8toi.onrender.com/read')
-      .then((res) => {
-        console.log(res, "response")
-        setData(res.data)
-        // setRowdata(res.data)
-      })
-      .catch((err) => {
-        console.log(err, "response")
+const Card = (params) => {
+  console.log(params)
+  const [data, setData] = useState([]);
+  const [data1, setData1] = useState([]);
+  const [open, setopen] = useState(false);
+  const [id, setid] = useState();
 
-      })
-  }
   useEffect(() => {
-    Getname()
-  }, [])
+    setData(params.data)
+  }, [params]);
   const handleopen = (id) => {
-    setopen(true)
-    setid(id)
-  }
+    setopen(true);
+    setid(id);
+    setData1(data.filter(obj => obj.id === id));
+  };
   const close = () => {
-    setopen(false)
-
-  }
+    setopen(false);
+  };
   return (
     <>
       {data.map((item) => (
@@ -44,8 +32,8 @@ const Card = () => {
             {/* <Link href={`/post/${post.slug}`}>{post.title}</Link> */}
           </h1>
           <div className="block lg:flex text-center items-center justify-center mb-8 w-full">
-            <div className="flex items-center justify-center mb-4 lg:mb-0 w-full lg:w-auto mr-8 items-center">
-              <img width="60px" height="60px" src={`data:image/png;base64,${item.author.photo}`} />
+            <div className="flex items-center justify-center mb-4 lg:mb-0 w-full lg:w-auto mr-8 ">
+              <img width="60px" height="60px" alt='g' src={`data:image/png;base64,${item.author.photo}`} />
               <p className="inline align-middle text-gray-700 ml-2 font-medium text-lg">{item.author.name}</p>
             </div>
             <div className="font-medium text-gray-700">
@@ -65,10 +53,10 @@ const Card = () => {
           </div>
         </div>
       ))}
-      <Main open={open} close={close} id={id} />
+      <Main open={open} close={close} id={id} data={data1} cat={data} />
     </>
 
-  )
-}
+  );
+};
 
-export default Card
+export default Card;

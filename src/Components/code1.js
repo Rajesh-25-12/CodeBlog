@@ -1,11 +1,15 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import React, { useEffect } from "react";
 import { MdContentCopy } from "react-icons/md";
 import styled from "styled-components";
 import CopyToClipboard from "@uxui/copy-to-clipboard-react";
-
+import Editor from 'react-simple-code-editor';
+import { highlight, languages } from 'prismjs/components/prism-core';
+import 'prismjs/components/prism-clike';
+import 'prismjs/components/prism-javascript';
+import 'prismjs/themes/prism.css'; //Example style, you can use another
+import "./code.css";
 const Pane = styled("div")({
-    padding:"20px 20px 20px 20px",
+  padding: "20px 20px 20px 20px",
   backgroundColor: "#001e3c",
   borderRadius: "3px",
   border: "1px solid #dddddd",
@@ -13,12 +17,12 @@ const Pane = styled("div")({
   justifyContent: "space-between",
   position: "relative",
   fontFamily: "sans-serif",
-  borderRadius:"10px",
+  borderRadius: "10px",
   fontSize: "16px"
 });
 
 const Container = styled("div")({
-  color:"white",
+  color: "white",
 });
 
 const Tooltip = styled("div")({
@@ -43,11 +47,16 @@ const Tooltip = styled("div")({
   }
 });
 
-function Codee({code}) {
-    const [showButtons, setShowButtons] = React.useState(false);
-
+function Codee({ code }) {
+  const [showButtons, setShowButtons] = React.useState(false);
+  const [code1, setCode] = React.useState(code);
+  useEffect(() => {
+    setCode(code)
+  }, [code])
   const content = code;
+
   return (
+
     <CopyToClipboard>
       {({ copy, copied, turnOffCopied }) => {
         const handleCopy = e => {
@@ -72,22 +81,29 @@ function Codee({code}) {
         };
 
         return (
-          <Container 
-          onMouseOver={() => setShowButtons(true)}
-          onFocus={() => setShowButtons(true)}
-          onMouseOut={() => setShowButtons(false)}
-          onBlur={() => setShowButtons(true)}
+          <Container
+            onMouseOver={() => setShowButtons(true)}
+            onFocus={() => setShowButtons(true)}
+            onMouseOut={() => setShowButtons(false)}
+            onBlur={() => setShowButtons(true)}
           >
             <Pane>
-              <span className="code-text">{content}</span>
+              <span className="code-text">
+                <Editor
+                  value={code1}
+                  onValueChange={code => setCode(code)}
+                  disabled
+                  highlight={code => highlight(code, languages.js)}
+                  padding={10}
+                /></span>
               <div
                 role="button"
                 onClick={copyOnClick}
                 tabIndex={0}
                 onKeyDown={copyOnKeyPress}
               >
-                              {showButtons && (
-                <MdContentCopy />)}
+                {showButtons && (
+                  <MdContentCopy />)}
                 {copied && (
                   <Tooltip
                     role="tooltip"
@@ -102,6 +118,7 @@ function Codee({code}) {
         );
       }}
     </CopyToClipboard>
+
   );
 }
 export default Codee

@@ -4,7 +4,6 @@ import Codee from './code1'
 import { Avatar } from '@mui/material'
 import '../globals.scss'
 const Postdetail = ({ post }) => {
-  console.log(post, "postt")
   return (
     <div className="bg-white shadow-lg rounded-lg lg:p-8 pb-12 mb-8">
       <div className="relative overflow-hidden shadow-md mb-6">
@@ -39,6 +38,7 @@ const Postdetail = ({ post }) => {
           <>
             <p className='text-md font-semibold mb-4'>{item.text}</p>
             <Codee code={item.code}/>
+            <br/>
           </>
         ))}
       </div>
