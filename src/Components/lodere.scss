@@ -1,6 +1,10 @@
 @import url("https://fonts.googleapis.com/css?family=Raleway:400,700");
 
-
+$bg-pink: linear-gradient(
+  to right,
+  rgba(218, 28, 96, 1) 0%,
+  rgba(243, 102, 31, 0.9) 100%
+);
 
 $bg-dark:'';
 $white:#fff;
@@ -21,27 +25,18 @@ h2 {
   text-transform: uppercase;
 }
 
-body {
-  overflow: hidden;
-  position: relative;
-  font-family: "Raleway", sans-serif;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  background:$bg-dark;
-}
+
 
 .bg-1 {
   // width: 100vw;
-  height: 10vh;
+  // height: 100vh;
 
   opacity: 0;
   animation: page-up 1s ease 0s none;
   top: 0;
   left: 0;
   display: block;
-  // background: $bg-pink;
+  background: $bg-pink;
 }
 
 @keyframes page-up {

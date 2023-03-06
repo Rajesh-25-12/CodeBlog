@@ -16,7 +16,7 @@ const Home = () => {
         setTimeout(()=>{
           setOpen(false)
 
-        },1000)
+        },800)
       })
       .catch((err) => {
         console.log(err, "response")
