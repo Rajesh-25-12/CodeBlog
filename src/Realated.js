@@ -60,8 +60,9 @@ const FeaturedPosts = ({ data }) => {    // Defining "FeaturedPosts" component
             <FeaturedPost key={index} post={post} />
           </div>
         ))}
-        <Main open={open} close={close} id={id} data={data1} cat={data} />
       </Carousel>
+      <Main open={open} close={close} id={id} data={data1} cat={data} />
+
     </div>
   );
 };
